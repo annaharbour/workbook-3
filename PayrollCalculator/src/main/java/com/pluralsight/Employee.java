@@ -5,8 +5,15 @@ import java.math.BigDecimal;
 public class Employee {
     private int employeeId;
     private String name;
-    private int hoursWorked;
+    private double hoursWorked;
     private BigDecimal payRate;
+
+    public Employee(int employeeId, String name, double hoursWorked, BigDecimal payRate) {
+        this.employeeId = employeeId;
+        this.name = name;
+        this.hoursWorked = hoursWorked;
+        this.payRate = payRate;
+    }
 
     public int getEmployeeId() {
         return employeeId;
@@ -24,11 +31,11 @@ public class Employee {
         this.name = name;
     }
 
-    public int getHoursWorked() {
+    public double getHoursWorked() {
         return hoursWorked;
     }
 
-    public void setHoursWorked(int hoursWorked) {
+    public void setHoursWorked(double hoursWorked) {
         this.hoursWorked = hoursWorked;
     }
 
@@ -40,11 +47,10 @@ public class Employee {
         this.payRate = payRate;
     }
 
-    public BigDecimal getGrossPay(){
+    public BigDecimal getGrossPay() {
 //        TODO: gross pay calc
-        BigDecimal grossPay = new BigDecimal(10.5);
+        BigDecimal grossPay = payRate.multiply(new BigDecimal(hoursWorked));
         return grossPay;
-
     }
 
 }

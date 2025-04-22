@@ -1,26 +1,35 @@
 package com.pluralsight;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.math.BigDecimal;
+
 public class PayrollCalculatorApp {
+
     public static void main(String[] args) {
 
-//TODO: 1. Load the file using a FileReader object
+        try {
+            FileReader fileReader = new FileReader("PayrollCalculator/employees.csv");
+            BufferedReader bufReader = new BufferedReader(fileReader);
+            bufReader.readLine(); // Skip header line
+            System.out.println("id|name|hours-worked|pay-rate|gross pay");
+            String input;
+            while ((input = bufReader.readLine()) != null) {
+                String[] fields = input.split("\\|");
+                int employeeId = Integer.parseInt(fields[0]);
+                String name = fields[1];
+                double hoursWorked = Double.parseDouble(fields[2]);
+                BigDecimal payRate = new BigDecimal(fields[3]);
+                Employee employee = new Employee(employeeId, name, hoursWorked, payRate);
+                System.out.printf("%d|%s|%.2f|$%.2f|$%.2f\n", employee.getEmployeeId(), employee.getName(),
+                        employee.getHoursWorked(), employee.getPayRate(), employee.getGrossPay());
+            }
+            bufReader.close();
+        } catch (IOException e) {
+            System.out.println("Difficulty reading file!");
+            System.out.println(e);
 
-//TODO: 2. Read each line of text
-
-//TODO: 3. Split it into individual fields using the | character as the delimiter
-
-//TODO: 4. Copy the values from the tokens array into variables that match the data and then use them to create a new
-// Employee object
-
-//TODO: 5. Display the employee using a printf and by calling the employee's getEmployeeId(), getName(), and
-// getGrossPay() methods
-//id|name|hours-worked|pay-rate
-//For example:
-//10|Dana Wyatt|52.5|12.50
-//20|Ezra Aiden|17|16.75
-//30|Brittany Thibbs|40|16.50
-//40|Zephaniah Hughes|2|10.0
-
-//TODO: 6. Repeat for each line in the input file
+        }
     }
 }
