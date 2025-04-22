@@ -1,5 +1,6 @@
 package com.pluralsight;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
@@ -18,12 +19,17 @@ public class Main {
 
         boolean seeOptions = false;
         do {
-            System.out.println("Select a number between 1-10 or 0 to quit");
+            System.out.println("Select a number between 1-10 to view the corresponding quote, 11 for a random quote, " +
+                    "or 0 to quit");
             Scanner scanner = new Scanner(System.in);
             int selection = scanner.nextInt();
             scanner.nextLine();
             try {
-                System.out.println(quotes[selection - 1]);
+                if(selection == 11){
+                    System.out.println(quotes[new Random().nextInt(quotes.length)]);
+                } else {
+                    System.out.println(quotes[selection - 1]);
+                }
                 System.out.println("Would you like to see another quote? Type Y for yes and N for no: ");
             } catch (ArrayIndexOutOfBoundsException e) {
                 if (selection != 0) {
