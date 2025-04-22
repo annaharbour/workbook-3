@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Main {
+public class BedtimeStoriesApp {
     public static void main(String[] args) {
         Scanner scanner = new Scanner((System.in));
         System.out.println("Please select a story to read: \n 1. Goldilocks \n 2. Hansel and Gretel \n 3. Mary Had a " +

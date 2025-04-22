@@ -6,6 +6,7 @@
       <list>
         <option value="$PROJECT_DIR$/BedTimeStoriesApp/pom.xml" />
         <option value="$PROJECT_DIR$/FamousQuotesApp/pom.xml" />
+        <option value="$PROJECT_DIR$/PayrollCalculator/pom.xml" />
       </list>
     </option>
   </component>

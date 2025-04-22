@@ -1,11 +1,10 @@
 package com.pluralsight;
 
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Main {
+public class FamousQuotesApp {
     public static void main(String[] args) {
         String quotes[] = {"\"The only thing we have to fear is fear itself.\" - Franklin D.Roosevelt",
                 "\"The journey of a thousand miles begins with a single step.\" - Lao Tzu",
