@@ -35,7 +35,7 @@ public class BedtimeStoriesApp {
 
                 try {
                     FileInputStream fileInputStream =
-                            new FileInputStream("Mod1/BedTimeStoriesApp/stories/" + storyName + ".txt");
+                            new FileInputStream("BedTimeStoriesApp/src/main/resources/stories/" + storyName + ".txt");
                     Scanner storyScanner = new Scanner(fileInputStream);
 
                     String story;

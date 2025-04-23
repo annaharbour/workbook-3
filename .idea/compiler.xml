@@ -6,12 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="FamousQuotes" />
         <module name="PayrollCalculator" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="BedTimeStoriesApp" target="17" />
+      <module name="FamousQuotes" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
