@@ -3,9 +3,74 @@ package com.pluralsight;
 import java.io.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class PayrollCalculatorApp {
+
+    public static void main(String[] args) {
+//        READ
+        System.out.println("Enter the name of the employee file to process, including the extension: ");
+        Scanner scanner = new Scanner(System.in);
+        String read = scanner.nextLine();
+        ArrayList<Employee> employees = new ArrayList<Employee>();
+        readEmployees(read, employees);
+        promptWriteFile(scanner, employees);
+    }
+
+    private static void readEmployees(String read, ArrayList<Employee> employees) {
+        try {
+            FileReader fileReader = new FileReader("PayrollCalculator/src/main/resources/" + read);
+            BufferedReader bufReader = new BufferedReader(fileReader);
+            bufReader.readLine(); // Skip header line
+//            System.out.println("id|name|hours-worked|pay-rate|gross pay");
+            String input;
+            while ((input = bufReader.readLine()) != null) {
+                String[] fields = input.split("\\|");
+                int employeeId = Integer.parseInt(fields[0]);
+                String name = fields[1];
+                double hoursWorked = Double.parseDouble(fields[2]);
+                BigDecimal payRate = new BigDecimal(fields[3]);
+                Employee employee = new Employee(employeeId, name, hoursWorked, payRate);
+                employees.add(employee);
+//                System.out.printf("%d|%s|%.2f|$%.2f|$%.2f\n", employee.getEmployeeId(), employee.getName(),
+//                        employee.getHoursWorked(), employee.getPayRate(), employee.getGrossPay());
+            }
+            bufReader.close();
+        } catch (IOException e) {
+            System.out.println("Difficulty reading file!");
+            System.out.println(e);
+        }
+    }
+
+
+    private static void promptWriteFile(Scanner scanner, ArrayList<Employee> employees) {
+        System.out.println("Enter the name of the payroll file to create:");
+        String fileName = scanner.nextLine();
+        System.out.println("Choose an extension: 1. json OR 2. csv\n");
+        try {
+            int jsonOrCsv = scanner.nextInt();
+            scanner.nextLine();
+
+            if (jsonOrCsv == 1) {
+                fileName += ".json";
+                writeJsonFile(employees, fileName);
+            } else if (jsonOrCsv == 2){
+                fileName += ".csv";
+                writeCSV(employees, fileName);
+            } else {
+                System.out.println("Invalid extension\n");
+                promptWriteFile(scanner, employees);
+            }
+        } catch (InputMismatchException e){
+            System.out.println("Invalid extension or filename.");
+//            e.printStackTrace();
+            promptWriteFile(scanner, employees);
+        }
+
+    }
+
+
     public static void writeJsonFile(ArrayList<Employee> employees, String fileName) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             writer.write("[\n");
@@ -21,7 +86,7 @@ public class PayrollCalculatorApp {
                                 "    \"grossPay\": %.2f\n" +
                                 "  }",
                         employee.getEmployeeId(),
-                        employee.getName().replace("\"", "\\\""), // escape quotes in name
+                        employee.getName().replace("\"", "\\\""),
                         employee.getHoursWorked(),
                         employee.getPayRate().doubleValue(),
                         employee.getGrossPay().doubleValue()
@@ -75,42 +140,4 @@ public class PayrollCalculatorApp {
         }
     }
 
-    public static void main(String[] args) {
-        System.out.println("Enter the name of the employee file to process: ");
-        Scanner scanner = new Scanner(System.in);
-        String read = scanner.nextLine();
-        System.out.println("Enter the name of the payroll file to create:");
-        String fileName = scanner.nextLine();
-//        TODO: error handling for improper input
-        System.out.println("Choose an extension: 1. json OR 2. csv");
-        int jsonOrCsv = scanner.nextInt();
-        scanner.nextLine();
-        fileName += jsonOrCsv == 1 ? ".json" : ".csv";
-        ArrayList<Employee> employees = new ArrayList<Employee>();
-        try {
-            FileReader fileReader = new FileReader("PayrollCalculator/src/main/resources/" + read);
-            BufferedReader bufReader = new BufferedReader(fileReader);
-            bufReader.readLine(); // Skip header line
-//            System.out.println("id|name|hours-worked|pay-rate|gross pay");
-            String input;
-            while ((input = bufReader.readLine()) != null) {
-                String[] fields = input.split("\\|");
-                int employeeId = Integer.parseInt(fields[0]);
-                String name = fields[1];
-                double hoursWorked = Double.parseDouble(fields[2]);
-                BigDecimal payRate = new BigDecimal(fields[3]);
-                Employee employee = new Employee(employeeId, name, hoursWorked, payRate);
-                employees.add(employee);
-//                System.out.printf("%d|%s|%.2f|$%.2f|$%.2f\n", employee.getEmployeeId(), employee.getName(),
-//                        employee.getHoursWorked(), employee.getPayRate(), employee.getGrossPay());
-            }
-            bufReader.close();
-        } catch (IOException e) {
-            System.out.println("Difficulty reading file!");
-            System.out.println(e);
-        }
-
-//        writeCSV(employees, fileName);
-        writeJsonFile(employees, fileName);
-    }
 }
