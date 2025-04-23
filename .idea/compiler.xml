@@ -7,9 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="PayrollCalculator" />
+        <module name="BedtimeStory" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="BedTimeStories" target="17" />
       <module name="BedTimeStoriesApp" target="17" />
       <module name="FamousQuotes" target="17" />
     </bytecodeTargetLevel>

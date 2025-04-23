@@ -2,7 +2,6 @@ package com.pluralsight;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -35,7 +34,7 @@ public class BedtimeStoriesApp {
 
                 try {
                     FileInputStream fileInputStream =
-                            new FileInputStream("BedTimeStoriesApp/src/main/resources/stories/" + storyName + ".txt");
+                            new FileInputStream("BedtimeStory/stories/" + storyName + ".txt");
                     Scanner storyScanner = new Scanner(fileInputStream);
 
                     String story;

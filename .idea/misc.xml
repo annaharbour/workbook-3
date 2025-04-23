@@ -7,7 +7,14 @@
         <option value="$PROJECT_DIR$/BedTimeStoriesApp/pom.xml" />
         <option value="$PROJECT_DIR$/FamousQuotesApp/pom.xml" />
         <option value="$PROJECT_DIR$/PayrollCalculator/pom.xml" />
+        <option value="$PROJECT_DIR$/BedtimeStories/pom.xml" />
+        <option value="$PROJECT_DIR$/BedtimeStory/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/BedtimeStories/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="corretto-17" project-jdk-type="JavaSDK">
