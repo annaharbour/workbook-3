@@ -6,6 +6,44 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class PayrollCalculatorApp {
+    public static void writeJsonFile(ArrayList<Employee> employees, String fileName) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            writer.write("[\n");
+
+            for (int i = 0; i < employees.size(); i++) {
+                Employee employee = employees.get(i);
+                String jsonObject = String.format(
+                        "  {\n" +
+                                "    \"employeeId\": %d,\n" +
+                                "    \"name\": \"%s\",\n" +
+                                "    \"hoursWorked\": %.2f,\n" +
+                                "    \"payRate\": %.2f,\n" +
+                                "    \"grossPay\": %.2f\n" +
+                                "  }",
+                        employee.getEmployeeId(),
+                        employee.getName().replace("\"", "\\\""), // escape quotes in name
+                        employee.getHoursWorked(),
+                        employee.getPayRate().doubleValue(),
+                        employee.getGrossPay().doubleValue()
+                );
+
+                writer.write(jsonObject);
+
+                // Don't add comma after last object
+                if (i < employees.size() - 1) {
+                    writer.write(",\n");
+                } else {
+                    writer.write("\n");
+                }
+            }
+
+            writer.write("]");
+            System.out.println("JSON file written to " + fileName);
+        } catch (IOException e) {
+            System.out.println("Error writing JSON file!");
+            e.printStackTrace();
+        }
+    }
 
     public static void writeCSV(ArrayList<Employee> employees, String fileName
     ) {
@@ -72,6 +110,7 @@ public class PayrollCalculatorApp {
             System.out.println(e);
         }
 
-        writeCSV(employees, fileName);
+//        writeCSV(employees, fileName);
+        writeJsonFile(employees, fileName);
     }
 }
