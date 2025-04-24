@@ -12,15 +12,15 @@ public class PayrollCalculatorApp {
 //        READ
         System.out.println("Enter the name of the employee file to process, including the extension: ");
         Scanner scanner = new Scanner(System.in);
-        String read = scanner.nextLine();
-        ArrayList<Employee> employees = new ArrayList<Employee>();
-        readEmployees(read, employees);
+        String fileName = scanner.nextLine();
+        ArrayList<Employee> employees = readEmployees(fileName);
         promptWriteFile(scanner, employees);
     }
 
-    private static void readEmployees(String read, ArrayList<Employee> employees) {
+    private static ArrayList<Employee> readEmployees(String fileName) {
+        ArrayList<Employee> employees = new ArrayList<Employee>();
         try {
-            FileReader fileReader = new FileReader("PayrollCalculator/src/main/resources/" + read);
+            FileReader fileReader = new FileReader("PayrollCalculator/src/main/resources/" + fileName);
             BufferedReader bufReader = new BufferedReader(fileReader);
             bufReader.readLine(); // Skip header line
 //            System.out.println("id|name|hours-worked|pay-rate|gross pay");
@@ -41,6 +41,7 @@ public class PayrollCalculatorApp {
             System.out.println("Difficulty reading file!");
             System.out.println(e);
         }
+        return employees;
     }
 
 
